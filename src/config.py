@@ -2,8 +2,10 @@
 
 # TODO(jsgonzlez661): Configuration file for development or production mode
 
+KEY = b"k\xec\xa6@\x8b7'\xb8\x0c>9\xd9\xcc\xc2 \xb5"	
+
 class BaseConfig(object): # TODO(jsgonzlez661): Basic mode settings
-	SECRET_KEY = b"k\xec\xa6@\x8b7'\xb8\x0c>9\xd9\xcc\xc2 \xb5"	
+	SECRET_KEY = KEY
 	SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 class DevelopmentConfig(BaseConfig): # TODO(jsgonzlez661): Configuration for the development mode
