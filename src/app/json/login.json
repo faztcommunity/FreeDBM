@@ -1,0 +1,7 @@
+{
+    "auth_token":
+    {
+        "type": "string",
+        "required": true
+    }
+}

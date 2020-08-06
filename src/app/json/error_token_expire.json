@@ -1,0 +1,5 @@
+{
+    "status": 401,
+    "message": "Token has expired",
+    "new token": "/v1/auth/token"
+}

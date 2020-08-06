@@ -1,0 +1,4 @@
+{
+    "status": 401,
+    "message": "Provide a valid auth token"
+}
