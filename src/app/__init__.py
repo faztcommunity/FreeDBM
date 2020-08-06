@@ -24,5 +24,9 @@ manager = Manager(app)  # TODO(jsgonzlez661): Flask-Script Configuration
 manager.add_command('db', MigrateCommand)
 
 from .routes.signup import Signup
+from .routes.login import Login
+from .routes.get_new_token import Token
 # TODO(jsgonzlez661): Register resource signup
 api.add_resource(Signup, '/v1/auth/signup')
+api.add_resource(Login, '/v1/auth/login')
+api.add_resource(Token, '/v1/auth/token')
