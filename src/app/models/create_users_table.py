@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from app.models import db, datetime, UserMixin
 from .create_movie_user_table import movie_user
+from sqlalchemy.sql import select
 
 
 class User(db.Model, UserMixin):  # TODO(jsgonzlez661): Model users for api
@@ -21,8 +22,10 @@ class User(db.Model, UserMixin):  # TODO(jsgonzlez661): Model users for api
         'Movie', secondary=movie_user, backref=db.backref('userMovie',
                                                           lazy='dynamic'))
 
-    def verify_password(self, password):  # TODO(jsgonzlez661): Check password
-        return check_password_hash(self.encrypted_password, password)
+    @classmethod
+    # TODO(jsgonzlez661): Check password
+    def verify_password(cls, encrypted_password, password):
+        return check_password_hash(encrypted_password, password)
 
     @property
     def password(self):
@@ -54,3 +57,15 @@ class User(db.Model, UserMixin):  # TODO(jsgonzlez661): Model users for api
     @classmethod
     def get_by_id(cls, id):  # TODO(jsgonzlez661): Get user for id
         return User.query.filter_by(id=id).first()
+
+    @classmethod
+    def check_password(cls, email, password):  # TODO(jsgonzlez661): Get user for id
+        if(User.get_by_email(email)):
+            query = select([User]).where(User.email == email)
+            result = db.session.execute(query)
+            user = result.fetchone()
+            if(user != None and len(user) > 0):
+                return User.verify_password(user['encrypted_password'], password)
+            else:
+                return False
+        return False

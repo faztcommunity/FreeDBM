@@ -9,7 +9,7 @@ from .create_movie_actor_table import movie_actor
 from .create_movie_director_table import movie_director
 
 
-class Movie(db.Model):	# TODO(jsgonzlez661): Model movie for database
+class Movie(db.Model):  # TODO(jsgonzlez661): Model movie for database
 
     __tablename__ = 'movies'
 
@@ -24,9 +24,9 @@ class Movie(db.Model):	# TODO(jsgonzlez661): Model movie for database
                                                   lazy='dynamic'))
     actor = db.relationship('Actor', secondary=movie_actor,
                             backref=db.backref('actorMovie', lazy='dynamic'))
+    poster = db.Column(db.String(250),  nullable=False)
     synopsis = db.Column(db.Text(4294000000), nullable=False)
     user_id = db.relationship(
         'User', secondary=movie_user, backref=db.backref('userMovie',
                                                          lazy='dynamic'))
-
-
+    imdb_rating = db.Column(db.String(50),  nullable=False)
