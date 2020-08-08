@@ -25,8 +25,10 @@ manager.add_command('db', MigrateCommand)
 
 from .routes.signup import Signup
 from .routes.login import Login
-from .routes.get_new_token import Token
+from .routes.token import Token
+from .routes.logout import Logout
 # TODO(jsgonzlez661): Register resource signup
 api.add_resource(Signup, '/v1/auth/signup')
 api.add_resource(Login, '/v1/auth/login')
 api.add_resource(Token, '/v1/auth/token')
+api.add_resource(Logout, '/v1/auth/logout')
