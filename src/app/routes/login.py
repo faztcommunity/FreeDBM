@@ -7,29 +7,6 @@ from app.routes import *
 
 class Login(Resource):
 
-    def get(self):  # TODO(jsgonzlez661): Method GET for route Login
-        auth_token = request.args.get('auth_token', None)
-        if(auth_token != None):
-            try:
-                decoded = Login.validate_token(auth_token)
-                email = decoded['user_data']['email']
-                password = decoded['user_data']['password'].encode('utf-8')
-            except:
-                return decoded
-
-            if(User.check_password(email, password)):  # TODO(jsgonzlez661): Check user's credentials
-                responds = {
-                    "responds": JSON.load_json('success_login'),
-                    "auth_token": auth_token
-                }
-                cookie = make_response(responds)
-                # TODO(jsgonzlez661): Make Cookie
-                cookie.set_cookie("auth_token", auth_token)
-                return cookie
-
-            return JSON.load_json('error_email_password')
-        return JSON.load_json('error_data')
-
     def post(self):  # TODO(jsgonzlez661): Method POST for route Login
         json_file = request.get_json(force=True)
 

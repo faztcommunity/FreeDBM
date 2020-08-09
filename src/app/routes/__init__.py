@@ -28,26 +28,8 @@ class Responds():
         responds = {
             # TODO(jsgonzlez661): Make Token
             "auth_token": encoded_jwt.decode("utf-8"),
-            "responds": JSON.load_json('success_signup')
-        }
-        return responds
-
-    @classmethod
-    def get_message_signup(cls, username, email, password):
-        file_json = {
-            'user_data': {
-                'username': username,
-                'email': email,
-                'password': password
-            },
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=86400)
-        }
-        # TODO(jsgonzlez661): Time expiration for 24 hours
-        encoded_jwt = jwt.encode(file_json, config.KEY, algorithm='HS256')
-        responds = {
-            # TODO(jsgonzlez661): Make Token
-            "auth_token": encoded_jwt.decode("utf-8"),
-            "responds": JSON.load_json('success_signup')
+            "responds": JSON.load_json('success_signup'),
+            "login": "/v1/auth/login"
         }
         return responds
 
