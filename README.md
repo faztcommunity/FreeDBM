@@ -6,5 +6,6 @@ Python Rest API to see films information.
 ## Contributors
 * **Jose Gonzalez** [GitHub](https://github.com/jsgonzlez661)
 * **Erick Vargas** [GitHub](https://github.com/erianvc)
+* **Andres Bermeo** [GitHub](https://github.com/andipandiber)
 
 ## [License](./LICENSE)
