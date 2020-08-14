@@ -4,12 +4,15 @@
 
 from flask import request, make_response, url_for
 from flask_restful import Resource
-from app import api
+from flask_mail import Message
+from app import app, api, mail
 from app.models.create_users_table import User
 from app.models import db
 from cerberus import Validator
 from app.json import JSON
 from sqlalchemy.sql import select
+from werkzeug.security import generate_password_hash
+from threading import Thread
 import config
 import jwt
 import datetime
@@ -69,3 +72,27 @@ class Responds():
             else:
                 return JSON.load_json('error_email_check')
         return JSON.load_json('error_email_check')
+
+    # TODO(jsgonzlez661): Send an email with the user data to have a backup
+    @classmethod
+    def send_message(cls, subject, username, email, password):
+        msg = Message(subject, sender="jsgonzlez661@gmail.com",
+                      recipients=[email])
+        msg.html = "<h1>FreeDBM</h1><p>Thank you for registering</p><p><b>Username:</b> {0}<br><b>Email:</b> {1}<br><b>Password:</b> {2}</p><h4>Do not share this email</h4>".format(
+            username, email, password)
+        mail.send(msg)
+
+    @classmethod
+    def send_message_reset(cls, json_file):
+        file_json = {
+            'username': json_file.get('username', None),
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=3600)
+        }
+        email = json_file.get('email', None)
+        url_jwt = jwt.encode(file_json, config.KEY, algorithm='HS256')
+
+        msg = Message('Reset Password', sender="jsgonzlez661@gmail.com",
+                      recipients=[email])
+        msg.html = "<h1>FreeDBM</h1><p>You are receiving this email because you made a password recovery request</p><p>Follow the link to recover your password<br><br>http://localhost:5000/v1/auth/user/reset?key={0}</p><h4>This email expires in one hour</h4>".format(
+            url_jwt.decode("utf-8"))
+        mail.send(msg)

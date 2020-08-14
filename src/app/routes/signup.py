@@ -21,5 +21,7 @@ class Signup(Resource):
                 return JSON.load_json('error_username'), 401
             else:  # TODO(jsgonzlez661): Add user in DB
                 User.create_element(username, email, password)
+                Responds.send_message(
+                    "Successful Registration", username, email, password)
                 return Responds.post_message_signup(json_file), 201
         return JSON.load_json('error_data'), 400
