@@ -69,3 +69,26 @@ class User(db.Model, UserMixin):  # TODO(jsgonzlez661): Model users for api
             else:
                 return False
         return False
+
+    # TODO(jsgonzlez661): Change your password
+    @classmethod
+    def change_password(cls, email, password, new_password):
+        if(User.get_by_email(email)):
+            if(User.check_password(email, password)):
+                user = User.get_by_email(email)
+                user.encrypted_password = generate_password_hash(new_password)
+                db.session.commit()
+                return True
+        else:
+            return False
+
+    # TODO(jsgonzlez661): Reset your password
+    @classmethod
+    def reset_password(cls, username, email, new_password):
+        if(User.get_by_email(username)):
+            user = User.get_by_email(email)
+            user.encrypted_password = generate_password_hash(new_password)
+            db.session.commit()
+            return True
+        else:
+            return False
