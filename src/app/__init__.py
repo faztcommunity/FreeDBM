@@ -15,7 +15,7 @@ import config
 app = Flask(__name__)
 
 # TODO(jsgonzlez661): Load development mode
-app.config.from_object(config.DevelopmentConfig)
+app.config.from_object(config.ProductionConfig)
 
 CORS(app)  # TODO(jsgonzlez661): Configure cross-origin resource sharing
 
