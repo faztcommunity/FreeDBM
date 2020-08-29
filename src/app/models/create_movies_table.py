@@ -16,7 +16,7 @@ class Movie(db.Model):  # TODO(jsgonzlez661): Model movie for database
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(250),  nullable=False)
     year = db.Column(db.String(250),  nullable=False)
-    runtime = db.Column(db.String(250),  nullable=False)
+    runtime = db.Column(db.Integer,  nullable=False)
     genre = db.relationship('Gener', secondary=movie_geners,
                             backref=db.backref('genreMovie', lazy='dynamic'))
     director = db.relationship('Director', secondary=movie_director,

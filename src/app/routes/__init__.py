@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2020 Fazt Community ~ All rights reserved. MIT license.
 
-from flask import request, make_response, url_for
+from flask import request, make_response, url_for, jsonify
 from flask_restful import Resource
 from flask_mail import Message
 from app import app, api, mail
@@ -16,6 +16,7 @@ from threading import Thread
 import config
 import jwt
 import datetime
+import os
 
 
 class Responds():
@@ -67,16 +68,16 @@ class Responds():
                         "auth_token": encoded_jwt.decode("utf-8"),
                         "responds": JSON.load_json('success_token')
                     }
-                    return responds
-                return JSON.load_json('error_password')
+                    return responds, 201
+                return JSON.load_json('error_password'), 401
             else:
-                return JSON.load_json('error_email_check')
-        return JSON.load_json('error_email_check')
+                return JSON.load_json('error_email_check'), 400
+        return JSON.load_json('error_email_check'), 400
 
     # TODO(jsgonzlez661): Send an email with the user data to have a backup
     @classmethod
     def send_message(cls, subject, username, email, password):
-        msg = Message(subject, sender="jsgonzlez661@gmail.com",
+        msg = Message(subject, sender=os.getenv('MAIL_USERNAME'),
                       recipients=[email])
         msg.html = "<h1>FreeDBM</h1><p>Thank you for registering</p><p><b>Username:</b> {0}<br><b>Email:</b> {1}<br><b>Password:</b> {2}</p><h4>Do not share this email</h4>".format(
             username, email, password)
@@ -91,7 +92,7 @@ class Responds():
         email = json_file.get('email', None)
         url_jwt = jwt.encode(file_json, config.KEY, algorithm='HS256')
 
-        msg = Message('Reset Password', sender="jsgonzlez661@gmail.com",
+        msg = Message('Reset Password', sender=os.getenv('MAIL_USERNAME'),
                       recipients=[email])
         msg.html = "<h1>FreeDBM</h1><p>You are receiving this email because you made a password recovery request</p><p>Follow the link to recover your password<br><br>http://localhost:5000/v1/auth/user/reset?key={0}</p><h4>This email expires in one hour</h4>".format(
             url_jwt.decode("utf-8"))

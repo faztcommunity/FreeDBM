@@ -11,9 +11,7 @@ class Actor(db.Model):  # TODO(jsgonzlez661): Model actor for database
     __tablename__ = 'actors'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    firstname = db.Column(db.String(250),  nullable=False)
-    lastname = db.Column(db.String(250),  nullable=False)
-    nationality = db.Column(db.String(250),  nullable=False)
+    fullname = db.Column(db.String(250),  nullable=False)
     movie_actors = db.relationship(
         'Movie', secondary=movie_actor, backref=db.backref('actorMovie',
                                                            lazy='dynamic'))

@@ -4,4 +4,5 @@
 
 from flask_marshmallow import Marshmallow
 
+# TODO(jsgonzlez661): Configure Marshmallow for schema
 ma = Marshmallow()

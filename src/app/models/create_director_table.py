@@ -11,8 +11,7 @@ class Director(db.Model):  # TODO(jsgonzlez661): Model director for database
     __tablename__ = 'director'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    firstname = db.Column(db.String(250),  nullable=False)
-    lastname = db.Column(db.String(250),  nullable=False)
+    fullname = db.Column(db.String(250),  nullable=False)
     movie_director = db.relationship(
         'Movie', secondary=movie_director, backref=db.backref('directorMovie',
                                                               lazy='dynamic'))

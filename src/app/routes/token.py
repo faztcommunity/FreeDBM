@@ -12,5 +12,5 @@ class Token(Resource):  # TODO(jsgonzlez661): Generate a new token
         if(Responds.validate_json(json_file, 'user_token')):
             email = json_file.get('email', None)
             password = json_file.get('password', None)
-            return Responds.get_new_token(email, password), 201
+            return Responds.get_new_token(email, password)
         return JSON.load_json('error_data'), 400

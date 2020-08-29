@@ -39,7 +39,7 @@ class Login(Resource):
             decoded = jwt.decode(auth_token, config.KEY, algorithm='HS256')
         except jwt.exceptions.DecodeError:
             # TODO(jsgonzlez661): If token no validate
-            return JSON.load_json('error_token')
+            return JSON.load_json('error_token'), 400
         except jwt.ExpiredSignatureError:
             # TODO(jsgonzlez661): Check if token expire
             return JSON.load_json('error_token_expire'), 401
