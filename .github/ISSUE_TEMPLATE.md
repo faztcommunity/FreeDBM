@@ -1,9 +1,9 @@
-## Reporting an issue
-#### Please specify some information about yourself:
-* **Operative system:**:
-* **Operative system version:**:
-* **Operational system bits [32/64]:**
-* **Python version:**
+## Reportando un issue.
+#### Porfavor, especifica información sobre tu sistema operativo:
+* **Sistema operativo:**:
+* **Versión del sistema operativo:**:
+* **Arquitectura del procesador (bits) [32/64]:**
+* **Versión de Python:**
 
-#### Describe your issue:
-###### If you can provide pictures or videos about it.
+#### Describe tu issue:
+###### Si puedes, muestranos fotografías de este.
